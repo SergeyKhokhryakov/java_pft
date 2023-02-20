@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-mainClassName = "Chorus"
+//mainClassName = "Chorus"
 
 //group 'org.example'
 
