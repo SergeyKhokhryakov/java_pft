@@ -1,7 +1,8 @@
 package ru.stqa.pft.sandbox;
 
 class Pet {
-  void voice() {
+  String voice() {
+    return null;
   }
 
   ;
