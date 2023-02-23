@@ -1,3 +1,4 @@
 rootProject.name = 'java_pft'
 include 'sandbox'
+include 'addressbook-web-tests'
 
