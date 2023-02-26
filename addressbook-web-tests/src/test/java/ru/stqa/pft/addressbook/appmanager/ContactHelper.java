@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import static org.testng.Assert.assertTrue;
+
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
     super(wd);
@@ -30,4 +32,10 @@ public class ContactHelper extends HelperBase {
   public void submitContactModification() {
     click(By.xpath("//div[@id='content']/form/input[22]"));
   }
+  public void deleteSelectedContact() {
+    click(By.xpath("//input[@value='Delete']"));
+    closeModalWindow();
+  }
+
+
 }
