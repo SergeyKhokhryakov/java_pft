@@ -21,4 +21,13 @@ public class ContactHelper extends HelperBase {
   public void returnToHomePage() {
     click(By.xpath("//a[contains(text(),'home page')]"));
   }
+  public void selectContact() {
+    click(By.id("1"));
+  }
+  public void initContactModification() {
+    click(By.cssSelector("img[alt=\"Edit\"]"));
+  }
+  public void submitContactModification() {
+    click(By.xpath("//div[@id='content']/form/input[22]"));
+  }
 }

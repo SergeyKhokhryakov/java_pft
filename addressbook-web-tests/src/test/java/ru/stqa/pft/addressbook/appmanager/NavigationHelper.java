@@ -12,7 +12,7 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("groups"));
   }
 
-  public void gotoContactPage() {
+  public void gotoContactNewPage() {
     click(By.xpath("//a[contains(text(),'add new')]"));
   }
 }
