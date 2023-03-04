@@ -30,9 +30,7 @@ public class ContactHelper extends HelperBase {
   public void submitContactCreation() {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
-  public void returnToHomePage() {
-    click(By.xpath("//a[contains(text(),'home page')]"));
-  }
+
   public void selectContact() {
     click(By.id("1"));
   }
