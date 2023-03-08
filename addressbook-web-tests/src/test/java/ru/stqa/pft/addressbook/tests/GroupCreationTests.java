@@ -43,9 +43,18 @@ public class GroupCreationTests extends TestBase {
     int max1 = after.stream().max(byId).get().getId();
     group.setId(max1);
      */
+    /* Сравнение неупорядоченных множеств
     group.setId(after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId());
     before.add(group);
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+     */
+
+    // Сравнение упорядоченных списков, когда уникальными идентификаторами можно пренебречь
+    before.add(group);
+    Comparator<? super GroupData> byId = Comparator.comparingInt(GroupData::getId);
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
   }
 
 }
