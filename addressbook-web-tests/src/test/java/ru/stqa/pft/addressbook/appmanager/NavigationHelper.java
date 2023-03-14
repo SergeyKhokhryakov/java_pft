@@ -8,7 +8,7 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  public void gotoGroupPage() {
+  public void groupPage() {
     // Если та же самая страница, то остаемся на ней
     if (isElementPresent(By.name("h1"))
           && wd.findElement(By.name("h1")).getText().equals("Groups")
@@ -22,7 +22,7 @@ public class NavigationHelper extends HelperBase {
     click(By.xpath("//a[contains(text(),'add new')]"));
   }
 
-  public void gotoHomePage() {
+  public void homePage() {
     // Если та же самая страница, то остаемся на ней
     if (isElementPresent(By.id("maintable"))) {
       return;
