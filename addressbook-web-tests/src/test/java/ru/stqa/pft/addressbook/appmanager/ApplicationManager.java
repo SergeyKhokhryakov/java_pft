@@ -5,6 +5,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Browser;
@@ -27,7 +28,10 @@ public class ApplicationManager {
     if (browser.equals(Browser.FIREFOX)){
       wd = new FirefoxDriver();
     } else if (browser.equals(Browser.CHROME)){
-      wd = new ChromeDriver();
+      //Для версии Chrome (chromedriver) 111.0.5563.64 (Официальная сборка), (x86_64)
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote-allow-origins=*");
+      wd = new ChromeDriver(options);
     } else if (browser.equals(Browser.EDGE)){
       wd = new EdgeDriver();
     }
