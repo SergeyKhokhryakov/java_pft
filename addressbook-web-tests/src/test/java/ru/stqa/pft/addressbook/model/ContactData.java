@@ -22,7 +22,7 @@ public class ContactData {
     this.goup = goup;
   }
   public ContactData(String firstName, String middleName, String lastName, String telephoneMobile, String email, String group) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
