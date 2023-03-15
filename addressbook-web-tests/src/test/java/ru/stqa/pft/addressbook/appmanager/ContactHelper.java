@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,8 @@ public class ContactHelper extends HelperBase {
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
-  public void initContactModification() {
-    click(By.cssSelector("img[alt=\"Edit\"]"));
+  public void initContactModification(int index) {
+    wd.findElements(By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
   }
   public void submitContactModification() {
     click(By.xpath("//div[@id='content']/form/input[22]"));
@@ -58,7 +57,7 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public void createContact(ContactData contact){
+  public void create(ContactData contact){
     initGroupCreation();
     fillContactForm(contact, true);
     submitContactCreation();

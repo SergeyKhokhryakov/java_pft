@@ -9,11 +9,11 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test (enabled = false)
+  @Test
   public void testCreationContact() {
     List<ContactData> before = app.getContactHelper().getContactList();
     ContactData contact = new ContactData("Alexandr", "Petrovich", "Ivanov", "+7(911)123-32-77", "tower@gmail.com", "Group1");
-    app.getContactHelper().createContact(contact);
+    app.getContactHelper().create(contact);
 
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() + 1);
@@ -22,7 +22,7 @@ public class ContactCreationTests extends TestBase {
     Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
     before.sort(byId);
     after.sort(byId);
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(after, before);
   }
 
 
