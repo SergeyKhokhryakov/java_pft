@@ -11,7 +11,7 @@ import java.util.List;
 public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
-    if (! app.contact().isThereAContact()){
+    if (app.contact().all().size() == 0){
       app.contact().create(new ContactData()
               .withFirstName("Alex").withMiddleName("Petrovich").withLastName("Ivanov").withTelephoneMobile("+7(911)123-32-77").withEmail("tower@gmail.com").withGoup("Group1"));
     }
@@ -20,12 +20,11 @@ public class ContactModificationTests extends TestBase {
   public void testContactModification() {
     List<ContactData> before = app.contact().all();
     int index = before.size() - 1;
-    app.contact().selectContact(index);
-    app.contact().initContactModification(index);
-    ContactData contact = new ContactData().withId(before.get(index).getId()).withFirstName("Michael").withMiddleName("Stepanovich").withLastName("Pushkin").withTelephoneMobile("+7(910)770-32-11").withEmail("tower@yandex.ru");
-    app.contact().fillContactForm(contact, false);
-    app.contact().submitContactModification();
-    app.goTo().homePage();
+    app.contact().initModify(index);
+    ContactData contact = new ContactData()
+            .withId(before.get(index).getId()).withFirstName("Michael").withMiddleName("Stepanovich").withLastName("Pushkin").withTelephoneMobile("+7(910)770-32-11").withEmail("twitter@yandex.ru");
+    app.contact().modify(contact, false);
+    app.contact().shutdownModify();
 
     List<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), before.size());
@@ -38,4 +37,6 @@ public class ContactModificationTests extends TestBase {
     after.sort(byId);
     Assert.assertEquals(after, before);
   }
+
+
 }

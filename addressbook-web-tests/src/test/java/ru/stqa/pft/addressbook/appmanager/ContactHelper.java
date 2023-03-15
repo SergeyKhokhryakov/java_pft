@@ -16,21 +16,8 @@ public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
     super(wd);
   }
-  public void fillContactForm(ContactData contactData, boolean creation) {
-    type(By.name("firstname"), contactData.getFirstName());
-    type(By.name("middlename"), contactData.getMiddleName());
-    type(By.name("lastname"), contactData.getLastName());
-    type(By.name("mobile"), contactData.getTelephoneMobile());
-    type(By.name("email"), contactData.getEmail());
-    // в форме создания контакта д.б. выпадающий список групп
-    if (creation == true) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGoup());
-    } else {
-      // в форме модификации контакта такого элемента не должно быть
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
-}
-  public void initGroupCreation(){
+
+  public void initContactCreation(){
     click(By.xpath("//a[contains(text(),'add new')]"));
   }
   public void submitContactCreation() {
@@ -58,12 +45,38 @@ public class ContactHelper extends HelperBase {
   }
 
   public void create(ContactData contact){
-    initGroupCreation();
-    fillContactForm(contact, true);
+    initContactCreation();
+    modify(contact, true);
     submitContactCreation();
     returnToHomePage();
   }
-
+  public void initModify(int index) {
+    selectContact(index);
+    initContactModification(index);
+  }
+  public void modify(ContactData contactData, boolean creation) {
+    type(By.name("firstname"), contactData.getFirstName());
+    type(By.name("middlename"), contactData.getMiddleName());
+    type(By.name("lastname"), contactData.getLastName());
+    type(By.name("mobile"), contactData.getTelephoneMobile());
+    type(By.name("email"), contactData.getEmail());
+    // в форме создания контакта д.б. выпадающий список групп
+    if (creation == true) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGoup());
+    } else {
+      // в форме модификации контакта такого элемента не должно быть
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+  }
+  public void shutdownModify(){
+    submitContactModification();
+    returnToHomePage();
+  }
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContact();
+    returnToHomePage();
+  }
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
