@@ -5,11 +5,11 @@ import java.util.Objects;
 public class ContactData {
 
   private int id;
-  private final String firstName;
-  private final String middleName;
-  private final String lastName;
-  private final String telephoneMobile;
-  private final String email;
+  private String firstName;
+  private String middleName;
+  private String lastName;
+  private String telephoneMobile;
+  private String email;
   private String goup;
 
   public ContactData(int id, String firstName, String middleName, String lastName, String telephoneMobile, String email, String goup) {
@@ -31,6 +31,16 @@ public class ContactData {
     this.telephoneMobile = telephoneMobile;
     this.email = email;
     this.goup = group;
+  }
+
+  public ContactData() {
+    this.id = Integer.MAX_VALUE;
+    this.firstName = null;
+    this.middleName = null;
+    this.lastName = null;
+    this.telephoneMobile = null;
+    this.email = null;
+    this.goup = null;
   }
 
 
@@ -59,6 +69,42 @@ public class ContactData {
   public String getGoup() {
     return goup;
   }
+
+  public ContactData withId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public ContactData withFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  public ContactData withMiddleName(String middleName) {
+    this.middleName = middleName;
+    return this;
+  }
+
+  public ContactData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public ContactData withTelephoneMobile(String telephoneMobile) {
+    this.telephoneMobile = telephoneMobile;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withGoup(String goup) {
+    this.goup = goup;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +

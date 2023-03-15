@@ -11,22 +11,23 @@ import java.util.List;
 public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
-    if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().create(new ContactData("Alex", "Petrovich", "Ivanov", "+7(911)123-32-77", "tower@gmail.com", "Group1"));
+    if (! app.contact().isThereAContact()){
+      app.contact().create(new ContactData()
+              .withFirstName("Alex").withMiddleName("Petrovich").withLastName("Ivanov").withTelephoneMobile("+7(911)123-32-77").withEmail("tower@gmail.com").withGoup("Group1"));
     }
   }
   @Test
   public void testContactModification() {
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().all();
     int index = before.size() - 1;
-    app.getContactHelper().selectContact(index);
-    app.getContactHelper().initContactModification(index);
-    ContactData contact = new ContactData(before.get(index).getId(),"Michael", "Stepanovich", "Pushkin", "+7(910)770-32-11", "tower@yandex.ru", null);
-    app.getContactHelper().fillContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
+    app.contact().selectContact(index);
+    app.contact().initContactModification(index);
+    ContactData contact = new ContactData().withId(before.get(index).getId()).withFirstName("Michael").withMiddleName("Stepanovich").withLastName("Pushkin").withTelephoneMobile("+7(910)770-32-11").withEmail("tower@yandex.ru");
+    app.contact().fillContactForm(contact, false);
+    app.contact().submitContactModification();
     app.goTo().homePage();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), before.size());
 
     before.remove(index);
