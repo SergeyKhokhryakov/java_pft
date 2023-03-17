@@ -10,8 +10,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.assertTrue;
-
 public class ContactHelper extends HelperBase {
   public ContactHelper(WebDriver wd) {
     super(wd);
@@ -37,7 +35,7 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[@value='Delete']"));
     closeModalWindow();
   }
-  public void returnToHomePage(){
+  public void gotoHomePage(){
     if (isElementPresent(By.id("maintable"))) {
       return;
     }
@@ -48,7 +46,7 @@ public class ContactHelper extends HelperBase {
     initContactCreation();
     modify(contact, true);
     submitContactCreation();
-    returnToHomePage();
+    gotoHomePage();
   }
   public void initModify(int index) {
     selectContact(index);
@@ -70,16 +68,14 @@ public class ContactHelper extends HelperBase {
   }
   public void shutdownModify(){
     submitContactModification();
-    returnToHomePage();
+    gotoHomePage();
   }
   public void delete(int index) {
     selectContact(index);
     deleteSelectedContact();
-    returnToHomePage();
+    gotoHomePage();
   }
-  public boolean isThereAContact() {
-    return isElementPresent(By.name("selected[]"));
-  }
+
   public List<ContactData> all() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
