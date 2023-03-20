@@ -22,7 +22,7 @@ public class GroupDeletionTests extends TestBase {
       app.group().create(new GroupData().withName("Group1"));
     }
   }
-  @Test
+  @Test(groups = {"positive", "group"}, priority = 3)
   public void testGroupDeletion() {
     Groups before = app.group().all();
     // берем на удаление любой элемент множества

@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -59,8 +60,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getTelephoneMobile());
     type(By.name("email"), contactData.getEmail());
     // в форме создания контакта д.б. выпадающий список групп
-    if (creation == true) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGoup());
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       // в форме модификации контакта такого элемента не должно быть
       Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -73,18 +74,32 @@ public class ContactHelper extends HelperBase {
   public void delete(int index) {
     selectContact(index);
     deleteSelectedContact();
-    gotoHomePage();
+    //gotoHomePage();
   }
 
-  public List<ContactData> all() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public List<ContactData> all() throws Exception{
+    List<ContactData> contacts = new ArrayList<>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
-    for (WebElement element : elements){
-      String name = element.getText();
-      String[] component = name.split(" ");
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id,component[1], null, component[0], null, null, null);
-      contacts.add(contact);
+    // блок try-catch реализован для браузера firefox
+    // для остальных браузеров (chrome, edge) часть try работает стабильно
+    int count = 0;
+    while (count < 4) {
+      try {
+        for (WebElement element : elements) {
+          String name = element.getText();
+          String[] component = name.split(" ");
+          int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+          ContactData contact = new ContactData(id, component[1], null, component[0], null, null, null);
+          contacts.add(contact);
+        }
+        //System.out.println("Elements have been found!");
+        break;
+      }catch(StaleElementReferenceException | NumberFormatException sere) {
+        //sere.toString();
+        //System.out.println("Trying to recover from " + count + " : "+sere.getMessage());
+        count=count+1;
+        elements.clear();
+      }
     }
     return contacts;
   }

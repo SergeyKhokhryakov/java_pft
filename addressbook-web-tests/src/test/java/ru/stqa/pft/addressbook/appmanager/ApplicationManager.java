@@ -1,15 +1,14 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.Browser;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -18,15 +17,20 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
+
   private Browser browser;
 
   public ApplicationManager(Browser browser) {
     this.browser = browser;
   }
 
+
   public void init() {
     if (browser.equals(Browser.FIREFOX)){
-      wd = new FirefoxDriver();
+      FirefoxOptions options = new FirefoxOptions();
+      options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+      wd = new FirefoxDriver(options);
+      wd.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
     } else if (browser.equals(Browser.CHROME)){
       //Для версии Chrome (chromedriver) 111.0.5563.64 (Официальная сборка), (x86_64)
       ChromeOptions options = new ChromeOptions();
@@ -35,7 +39,7 @@ public class ApplicationManager {
     } else if (browser.equals(Browser.EDGE)){
       wd = new EdgeDriver();
     }
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    //wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/index.php");
     groupHelper = new GroupHelper(wd);
     contactHelper = new ContactHelper(wd);

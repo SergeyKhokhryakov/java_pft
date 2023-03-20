@@ -10,7 +10,7 @@ public class ContactData {
   private String lastName;
   private String telephoneMobile;
   private String email;
-  private String goup;
+  private String group;
 
   public ContactData(int id, String firstName, String middleName, String lastName, String telephoneMobile, String email, String goup) {
     this.id = id;
@@ -19,7 +19,7 @@ public class ContactData {
     this.lastName = lastName;
     this.telephoneMobile = telephoneMobile;
     this.email = email;
-    this.goup = goup;
+    this.group = goup;
   }
 
 
@@ -30,7 +30,7 @@ public class ContactData {
     this.lastName = lastName;
     this.telephoneMobile = telephoneMobile;
     this.email = email;
-    this.goup = group;
+    this.group = group;
   }
 
   public ContactData() {
@@ -40,7 +40,7 @@ public class ContactData {
     this.lastName = null;
     this.telephoneMobile = null;
     this.email = null;
-    this.goup = null;
+    this.group = null;
   }
 
 
@@ -66,8 +66,8 @@ public class ContactData {
         return email;
         }
 
-  public String getGoup() {
-    return goup;
+  public String getGroup() {
+    return group;
   }
 
   public ContactData withId(int id) {
@@ -100,8 +100,8 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGoup(String goup) {
-    this.goup = goup;
+  public ContactData withGoup(String group) {
+    this.group = group;
     return this;
   }
 

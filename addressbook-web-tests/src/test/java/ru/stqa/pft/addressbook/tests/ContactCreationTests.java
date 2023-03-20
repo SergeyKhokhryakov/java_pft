@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-  @Test
-  public void testCreationContact() {
+  @Test(groups = {"positive", "contact"}, priority = 1)
+  public void testCreationContact() throws Exception {
     app.goTo().homePage();
     List<ContactData> before = app.contact().all();
     ContactData contact = new ContactData()
